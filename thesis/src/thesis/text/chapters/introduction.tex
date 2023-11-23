@@ -1,0 +1,30 @@
+% Do not forget to include Introduction
+%---------------------------------------------------------------
+% \chapter{Introduction}
+% uncomment the following line to create an unnumbered chapter
+\chapter*{Introduction}\addcontentsline{toc}{chapter}{Introduction}\markboth{Introduction}{Introduction}
+%---------------------------------------------------------------
+\setcounter{page}{1}
+
+It is hard to deny that the world is, in one way or another, entirely made up of dynamic systems. A dynamic system is always characterized by a state that changes or evolves over time. This thesis examines the state-space modeling approach of such dynamic systems, or more precisely,  of time series. State space representation is quite popular and widely used in various fields, such as economics, ecological modeling, engineering, etc.
+
+This thesis considers the sequential inference of state-space models using the universal Bayesian framework, which consists of finding the posterior distribution of the states based on the initial belief, or more correctly put, the prior density and observed sequence, which acts as a correcting factor. Of course, this includes a detailed review of the theoretical basis on which Bayesian methods are built, and not without filters from the most popular family of filters, Kalman filters, which are direct analytical implementations of Bayesian principles. On the one hand, for more convenience and simplicity within the limits of linear systems, the standard Kalman filter, which is an efficient linear estimator, and under some conditions, even the best linear filter, will be analyzed in detail. On the other hand, taking into account that in the real world, linear systems almost do not exist because real systems always have some non-linearities, to overcome the accompanying non-linear problems also on the agenda will be its extended version.
+
+Unfortunately, the above methodology and filters are based on the fact that both models, the process model and the model generating the measurements, are always well known, that is, represented in the form of well-defined probability density functions. In practice, however, it can often be found a situation where the model is poorly specified, or in general, the correct model is not available. This can be caused by various reasons, both trivial lack of knowledge of the domain and difficulties associated with numerical calculations. This thesis deals with the rather common situation when the measurement model is misspecified, which may be the case if the likelihood function of the state-space model is analytically intractable, for example.
+
+At this point, attention will be redirected to a class of sequential Monte Carlo filters called particle filters, which also, like Kalman filters, require full model specification, but, unlike them, based on numerous studies in particle filtering associated with misspecification issues, they are known to be quite robust even in such cases. Also, attention will not be ignored to the question of the price they pay for this notorious stability, which will be directly related to the analysis of the principle of their work. Under special consideration will also be their approximate extensions, the so-called approximate Bayesian filters, which allow one to completely ignore the noise distribution of measurements.
+
+Among the main objectives of the work are the following points:
+\begin{itemize}
+    \item An in-depth study of the theory of all the above filters and methodologies.
+    \item Conduct experiments on both well-specified models and misspecified models to compare performance and robustness of different filters.
+\end{itemize}
+
+As for the organization of the thesis, it is as follows. The Chapter \ref{chap:ssm_and_estimation} will be an introduction to the world of state-space modeling, which will begin with a historical introduction about the reasons and motivations for its use. In addition, the assumed form of a state-space model will be properly defined, followed by a transition to Bayesian filtering background and a discussion of the methodology itself, followed by an explanation of how these can be applied to state-space models. All this will be followed by a presentation of the concept of the Kalman filter from a Bayesian perspective, as well as its extended version for non-linear cases, with a gradual transition to the class of filters from the family of sequential Monte Carlo methods. Toward the end, the topic of the particle filter and its approximate extensions are touched upon, which directly includes the analysis of the ABC methodology.
+
+After that, the practical part follows, namely that all the filters described above will take part in the experiments. In Chapter \ref{chap:well_specified}, this goal will be directed to the study of the efficiency of filters under the conditions of well-specified models. This chapter deals with several models, there are both linear and non-linear models. The Chapter \ref{chap:misspecified} will also focus on numerical studies, but this time the experiments will be carried out on misspecified models.
+
+And finally, Chapter \ref{chap:conclusion} concludes the whole thesis and also sets possible directions for future work.
+
+\section*{Personal motivation}
+It would also be nice to add a few words about personal motivation. One of the main reasons was that the author of this work had a fairly general idea, or rather a lot of gaps in knowledge about the Kalman filter, etc. So it was quite an exciting challenge and an opportunity to go deeper, to get acquainted with the concept of Bayesianism, and maybe even in the future, to somehow connect work plans with it. At a minimum, the author does not regret the chosen topic and is very pleased with the knowledge gained in this thesis.

@@ -1,0 +1,280 @@
+%% This is the ctufit-thesis example file. It is used to produce theses
+%% for submission to Czech Technical University, Faculty of Information Technology.
+%%
+%% Get the newest version from
+%% https://gitlab.fit.cvut.cz/theses-templates/FITthesis-LaTeX
+%%
+%%
+%% Copyright 2021, Eliska Sestakova and Ondrej Guth
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public Licenese, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%  https://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%%
+%% The current maintainer of this work is Ondrej Guth.
+%% Contact ondrej.guth@fit.cvut.cz for bug reports.
+%% Alternatively, submit bug reports into the tracker at
+%% https://gitlab.fit.cvut.cz/theses-templates/FITthesis-LaTeX/issues
+%%
+%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CLASS OPTIONS
+% language: czech/english/slovak
+% thesis type: bachelor/master/dissertation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[english,master,unicode]{ctufit-thesis}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FILL IN THIS INFORMATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ctufittitle{Performance and robustness analysis of Bayesian filters} % replace with the title of your thesis
+\ctufitauthorfull{Bc. Mykyta Boiko} % replace with your full name (first name(s) and then family name(s) / surname(s)) including academic degrees
+\ctufitauthorsurnames{Boiko} % replace with your surname(s) / family name(s)
+\ctufitauthorgivennames{Mykyta} % replace with your first name(s) / given name(s)
+\ctufitsupervisor{Ing.\, Kamil Dedecius,\,Ph.D.} % replace with name of your supervisor/advisor (include academic degrees)
+\ctufitdepartment{Department of Applied Mathematics} % replace with the department of your defence
+\ctufityear{2022} % replace with the year of your defence
+\ctufitdeclarationplace{Prague} % replace with the place where you sign the declaration
+\ctufitdeclarationdate{\today} % replace with the date of signature of the declaration
+\ctufitabstractCZE{
+Jak je známo, stavové modely se široce používají k modelování různých pozorovatelných procesů v různých oblastech, od financí až po biologii. Na základě pozorované posloupnosti je hlavním zájmem odvodit posloupnost skrytých stavů, které je vyvolaly. Hlavním cílem této práce je studovat výkonnost a robustnost různých Bayesovských algoritmů používaných pro online filtraci stavů při dobře specifikovaných i chybně specifikovaných stavových modelech. Důvodem je skutečnost, že v praxi z různých důvodů často chybí znalost šumu procesu nebo měření. Tato práce se dotýká zejména poměrně populárního případu, kdy je model měření chybně specifikován. V rámci této práce je kladen důraz na seznámení s filtry z nejpopulárnější rodiny, Kalmanovy rodiny, a uvažuje se o nich z Bayesovského hlediska, přičemž nechybí ani částicový filtr, který je v souvislosti s aplikací na chybně specifikované modely považován za stabilnější. Pozornost bude věnována také a budou provedeny experimenty s tzv. přibližnými Bayesovskými filtry, které umožňují úplnou neznalost šumového rozdělení měření. Výsledkem práce by mělo být pokrytí teorie všeho výše uvedeného a výsledky experimentů, nevyjímaje stanovení plánů pro další rozvoj tématu.
+}
+\ctufitabstractENG{
+As is well-known, state-space models are widely used to model different observable processes in various fields, from finance to biology. Based on the observed sequence, the main interest is to deduce the sequence of hidden states that gave rise to them. The primary goal of this thesis is to study the performance and robustness of various Bayesian algorithms used for online state filtering under both well-specified and misspecified state-space models. This is due to the fact that in practice, for various reasons, there is often a lack of knowledge of process noise or measurements. This thesis, in particular, touches on the rather popular case where the measurement model is misspecified. As part of this work, the emphasis is placed on an introduction to the filters from the most popular family, the Kalman family, and consider them from a Bayesian perspective, also not without the particle filter, which is regarded as more stable in the context of application to misspecified models. Attention will also be paid, and experiments will be conducted with so-called approximate Bayesian filters, which allow complete ignorance of the noise distribution of measurements. The result of the thesis should be the coverage of the theory of all of the above and the results of experiments, not excluding the definition of plans for the future development of this topic.
+}
+\ctufitkeywordsCZE{Stavový model, Kalmanova filtrace, částicový filtr, Approximate Bayesian Computation}
+\ctufitkeywordsENG{State-space model, Kalman
+filtering, particle filter, Approximate Bayesian Computation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% END FILL IN
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CUSTOMIZATION of this template
+% Skip this part or alter it if you know what you are doing.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{iftex}[2020/03/06]
+\iftutex % XeLaTeX and LuaLaTeX
+    \RequirePackage{ellipsis}[2020/05/22] %ellipsis workaround for XeLaTeX
+\else
+    \RequirePackage[utf8]{inputenc}[2018/08/11] %this file encoding
+    \RequirePackage{lmodern}[2009/10/30] % vector flavor of Computer Modern font
+\fi
+
+% hyperlinks
+\RequirePackage[pdfpagelayout=TwoPageRight,colorlinks=false,allcolors=decoration,pdfborder={0 0 0.1}]{hyperref}[2020-05-15]
+
+% uncomment the following to hide all hyperlinks
+% \RequirePackage[pdfpagelayout=TwoPageRight,hidelinks]{hyperref}[2020-05-15]
+
+\RequirePackage{pdfpages}[2020/01/28]
+
+\setcounter{secnumdepth}{4} % numbering sections; 4: subsubsection
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CUSTOMIZATION of this template END
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+% DEMO CONTENTS SETTINGS
+% You may choose to modify this part.
+%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{dirtree}
+\usepackage{lipsum,tikz}
+\usepackage{csquotes}
+\usepackage{subfig} %subfigures
+\usepackage{graphicx}
+
+% http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/biblatex-contrib/biblatex-iso690/biblatex-iso690.pdf
+% variants: iso-numeric, iso-authoryear, iso-year
+\usepackage[style=iso-authoryear]{biblatex}
+\addbibresource{text/bib-database.bib}
+\addbibresource{text/references.bib}
+\usepackage{listings} % typesetting of sources
+% \usepackage{minted} % typesetting of sources
+
+% algorithm package
+\usepackage{algorithm,algcompatible,amsmath}
+\DeclareMathOperator*{\argmax}{\arg\!\max}% https://tex.stackexchange.com/q/83169/5764
+\algnewcommand\INPUT{\item[\textbf{Input:}]}%
+\algnewcommand\OUTPUT{\item[\textbf{Output:}]}%
+
+%theorems, definitions, etc.
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Důsledek}
+\newtheorem{proposition}[theorem]{Návrh}
+\newtheorem{definition}[theorem]{Definice}
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Příklad}
+\theoremstyle{remark}
+\newtheorem{note}[theorem]{Poznámka}
+\newtheorem*{note*}{Poznámka}
+\newtheorem{remark}[theorem]{Pozorování}
+\newtheorem*{remark*}{Pozorování}
+\numberwithin{theorem}{chapter}
+%theorems, definitions, etc. END
+%%%%%%%%%%%%%%%%%%%%%%
+% DEMO CONTENTS SETTINGS END
+%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document} 
+\frontmatter\frontmatterinit % do not remove these two commands
+
+\includepdf{boikomyk-assignment.pdf} % replace that file with your thesis assignment provided by study office
+
+\thispagestyle{empty}\cleardoublepage\maketitle % do not remove these three commands
+
+\imprintpage % do not remove this command
+
+\tableofcontents % do not remove this command
+%%%%%%%%%%%%%%%%%%%%%%
+% list of other contents: figures, tables, code listings, algorithms, etc.
+% add/remove commands accordingly
+%%%%%%%%%%%%%%%%%%%%%%
+\listoffigures % list of figures
+\begingroup
+\let\clearpage\relax
+\listoftables % list of tables
+\lstlistoflistings % list of source code listings generated by the listings package
+% \listoflistings % list of source code listings generated by the minted package
+\endgroup
+%%%%%%%%%%%%%%%%%%%%%%
+% list of other contents END
+%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%
+% ACKNOWLEDGMENT
+% FILL IN / MODIFY
+% This is a place to thank people for helping you. It is common to thank your supervisor.
+%%%%%%%%%%%%%%%%%%%
+\begin{acknowledgmentpage}
+	I want to thank my supervisor Kamil Dedecius for his responsiveness, ability to interest the topic, and curatorial work. I would also like to express my gratitude to my parents.
+\end{acknowledgmentpage} 
+%%%%%%%%%%%%%%%%%%%
+% ACKNOWLEDGMENT END
+%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%
+% DECLARATION
+% FILL IN / MODIFY
+%%%%%%%%%%%%%%%%%%%
+% INSTRUCTIONS
+% ENG: choose one of approved texts of the declaration. DO NOT CREATE YOUR OWN. Find the approved texts at https://courses.fit.cvut.cz/SFE/download/index.html#_documents (document Declaration for FT in English)
+% CZE/SLO: Vyberte jedno z fakultou schvalenych prohlaseni. NEVKLADEJTE VLASTNI TEXT. Schvalena prohlaseni najdete zde: https://courses.fit.cvut.cz/SZZ/dokumenty/index.html#_dokumenty (prohlášení do ZP)
+\begin{declarationpage}
+I hereby declare that the presented thesis is my own work and that I have cited all sources of information in accordance with the Guideline for adhering to ethical principles when elaborating an academic final thesis.
+I acknowledge that my thesis is subject to the rights and obligations stipulated by the Act No. 121/2000 Coll., the Copyright Act, as amended, in particular that the Czech Technical University in Prague has the right to conclude a license agreement on the utilization of this thesis as a school work under the provisions of Article 60 (1) of the Act.
+\end{declarationpage}
+%%%%%%%%%%%%%%%%%%%
+% DECLARATION END
+%%%%%%%%%%%%%%%%%%%
+
+\printabstractpage % do not remove this command
+
+%%%%%%%%%%%%%%%%%%%
+% SUMMARY
+% FILL IN / MODIFY
+% OR REMOVE ENTIRELY (upon agreement with your supervisor)
+% (appropriate to remove in most theses)
+%%%%%%%%%%%%%%%%%%%
+% \begin{summarypage}
+% \section*{Summary section}
+
+% \lipsum[1][1-8]
+
+% \section*{Summary section}
+
+% \lipsum[2][1-6]
+
+% \section*{Summary section}
+
+% \lipsum[3]
+
+% \section*{Summary section}
+
+% \lipsum[2]
+
+% \section*{Summary section}
+
+% \lipsum[1][1-8] Lorem lorem lorem.
+% \end{summarypage}
+%%%%%%%%%%%%%%%%%%%
+% SUMMARY END
+%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%
+% ABBREVIATIONS
+% FILL IN / MODIFY
+% OR REMOVE ENTIRELY
+% List the abbreviations in lexicography order.
+%%%%%%%%%%%%%%%%%%%
+% \chapter{Acronyms}
+	
+% \begin{tabular}{rl}
+% DFA & Deterministic Finite Automaton\\
+% FA & Finite Automaton\\
+% LPS & Labelled Prüfer Sequence\\
+% NFA & Nondeterministic Finite Automaton\\
+% NPS & Numbered Prüfer Sequence\\
+% XML & Extensible Markup Language\\
+% XPath & XML Path Language\\
+% XSLT & eXtensible Stylesheet Language Transformations\\
+% W3C & World Wide Web Consortium
+% \end{tabular}
+%%%%%%%%%%%%%%%%%%%
+% ABBREVIATIONS END
+%%%%%%%%%%%%%%%%%%%
+
+\mainmatter\mainmatterinit % do not remove these two commands
+
+%%%%%%%%%%%%%%%%%%%
+% THE THESIS
+% MODIFY ANYTHING BELOW THIS LINE
+%%%%%%%%%%%%%%%%%%%
+
+
+%---------------------------------------------------------------
+% Introduction
+\include{text/chapters/introduction}
+%---------------------------------------------------------------
+% State-space models and their estimation
+\include{text/chapters/state_space_models_and_their_estimation}
+%---------------------------------------------------------------
+%---------------------------------------------------------------
+% Well-specified models experiments
+\include{text/chapters/well_specified_models_experiments.tex}
+%---------------------------------------------------------------
+%---------------------------------------------------------------
+% Misspecified models experiments
+\include{text/chapters/misspecified_models_experiments.tex}
+%---------------------------------------------------------------
+%---------------------------------------------------------------
+% Conclusion
+\include{text/chapters/conlusion}
+%---------------------------------------------------------------
+
+\appendix\appendixinit % do not remove these two commands
+
+\include{text/appendix} % include `appendix.tex' from `text/' subdirectory
+
+\backmatter % do not remove this command
+
+\printbibliography % print out the BibLaTeX-generated bibliography list
+
+\include{text/medium} % include `medium.tex' from `text/' subdirectory
+
+\end{document}
