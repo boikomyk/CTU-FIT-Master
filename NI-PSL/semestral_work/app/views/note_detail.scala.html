@@ -1,0 +1,96 @@
+@import models.data.Note
+@import forms.NoteForm
+@import helper._
+
+@import java.time.format.DateTimeFormatter
+@(note: Note, form: Form[NoteForm])(implicit request: RequestHeader, messages: Messages, flash: Flash)
+
+@main("Note [ID:" + note.id.get.toString + "]", "notes") {
+    @if(!flash.isEmpty) {
+        <div id="alert-message" class="alert alert-success" role="alert">
+            @flash.get("success")
+        </div>
+    }
+
+    <div class="card text-white bg-secondary mb-3" style="max-width: 100%;">
+        <div class="card-header">
+            Entity info
+            <button
+            onclick="location.href='@controllers.routes.NotesController.noteExportCSV(note.id.get)'"
+            class="btn btn-outline-info" type="button" style="float: right">
+                <i class="fa fa-download"></i>
+                Export to CSV
+            </button>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>Database ID</th>
+                    <td>@note.id</td>
+                </tr>
+                <tr>
+                    <th>Created when</th>
+                    <td>@note.created_when.format(DateTimeFormatter.ofPattern("Y-MM-dd H:m:ss"))</td>
+                </tr>
+                <tr>
+                    <th>Updated when</th>
+                    <td>@note.updated_when.format(DateTimeFormatter.ofPattern("Y-MM-dd H:m:ss"))</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card bg-light mb-3" style="max-width: 100%;">
+        <div class="card-header">Basic information</div>
+
+        <div class="card-body">
+            @helper.form(action = helper.CSRF(routes.NotesController.noteEditPost(note.id.get)), args = Symbol("class") -> "w3-container") {
+                    <div class="form-group">
+                        <label for="@{form("title").id}">@{form("title").label}</label>
+                        <input type="text" class="form-control" id="@{form("title").id}" name="@{form("title").label}" disabled value="@{form("title").value}"
+                        aria-describedby="titleHelp" placeholder="Enter note title">
+@*                        <small id="titleHelp" class="form-text text-muted">Enter note title.</small>*@
+                    </div>
+                    <div class="form-group">
+                        <label for="@{form("content").id}">@{form("content").label}</label>
+                        <textarea id="@{form("content").id}" class="form-control" name="@{form("content").label}" disabled rows="5">@{form("content").value}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="@{form("tags").id}">@{form("tags").label}</label>
+                        <input type="text" class="form-control" id="@{form("tags").id}" name="@{form("tags").label}" disabled value="@{form("tags").value}"
+                        aria-describedby="tagsHelp" placeholder="Enter according tags for note.">
+                    </div>
+            }
+        </div>
+    </div>
+
+    <div class="card bg-light mb-3" style="max-width: 100%;">
+        <div class="card-header">Actions</div>
+        <div class="card-body">
+            <div class="row">
+                <button onclick="location.href='@controllers.routes.NotesController.noteEdit(note.id.get)'" type="button" class="btn btn-secondary">Edit</button>
+            </div>
+            <div class="row">
+                @helper.form(action = helper.CSRF(routes.NotesController.noteDelete(note.id.get)), args =
+                    Symbol("style") -> "position: relative; left: -1%; display: inline-block;",
+                    Symbol("onsubmit") -> "return confirm('Do you really want to delete this note?');") {
+                    <button style="left: 100px; width: 102%" class="btn btn-danger" type="submit">Delete</button>
+                }
+            </div>
+            <div class="row">
+                <button onclick="location.href='@controllers.routes.NotesController.notesList()'" type="button" class="btn btn-outline-success">Go back</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function(){
+            let flash = $('#alert-message')
+            if (flash.length > 0) {
+                setTimeout(function(){
+                    flash.fadeOut('slow');
+                }, 3000)
+            }
+        })
+    </script>
+}

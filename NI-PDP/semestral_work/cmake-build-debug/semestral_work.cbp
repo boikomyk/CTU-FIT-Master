@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="semestral_work"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="semestral_work">
+				<Option output="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/semestral_work" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/Cellar/open-mpi/4.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 semestral_work"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="semestral_work/fast">
+				<Option output="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/semestral_work" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/Cellar/open-mpi/4.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 semestral_work/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/ChessPiece.h">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/Chessboard.cpp">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/Chessboard.h">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/Cli.cpp">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/Cli.h">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/Clock.cpp">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/Clock.h">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/InputReader.cpp">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/InputReader.h">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/Logger.cpp">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/Logger.h">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/ProblemInstance.cpp">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/ProblemInstance.h">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/Solution.cpp">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/Solution.h">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/Solver.cpp">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/Solver.h">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/Typing.h">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/main.cpp">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/messages.h">
+			<Option target="semestral_work"/>
+		</Unit>
+		<Unit filename="/Users/user/Desktop/Magister-Degree/NI-PDP/semestral_work/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

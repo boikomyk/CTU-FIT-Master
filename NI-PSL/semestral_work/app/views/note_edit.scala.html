@@ -1,0 +1,126 @@
+@import models.data.Note
+@import forms.NoteForm
+@import helper._
+
+@import java.time.format.DateTimeFormatter
+@(note: Note, form: Form[NoteForm])(implicit request: RequestHeader, messages: Messages)
+
+@main("Note [ID:" + note.id.get.toString + "]", "notes") {
+
+
+    <div class="card text-white bg-secondary mb-3" style="max-width: 100%;">
+        <div class="card-header">Entity info</div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>Database ID</th>
+                    <td>@note.id</td>
+                </tr>
+                <tr>
+                    <th>Created when</th>
+                    <td>@note.created_when.format(DateTimeFormatter.ofPattern("Y-MM-dd H:m:ss"))</td>
+                </tr>
+                <tr>
+                    <th>Updated when</th>
+                    <td>@note.updated_when.format(DateTimeFormatter.ofPattern("Y-MM-dd H:m:ss"))</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card bg-light mb-3" style="max-width: 100%;">
+        <div class="card-header">Basic information</div>
+        <div class="card-body">
+        @helper.form(action = helper.CSRF(routes.NotesController.noteEditPost(note.id.get)), args = Symbol("class") -> "w3-container") {
+            <div class="form-group">
+                <label for="@{form("title").id}">@{form("title").label}</label>
+                <input type="text" class="form-control @if(form.errors("title").nonEmpty){ is-invalid }" id="@{form("title").id}" name="@{form("title").label}" value="@{form("title").value}"
+                aria-describedby="titleHelp" placeholder="Enter note title">
+                <small id="titleHelp" class="form-text text-muted">Enter relevant note title.</small>
+                @* Error handling *@
+                <div class="invalid-feedback">
+                    @for(error <- form.errors("title")) {
+                        <dd class="error">@Messages(error.message,0)</dd>
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="@{form("content").id}">@{form("content").label}</label>
+                <textarea id="@{form("content").id}" class="form-control @if(form.errors("content").nonEmpty){ is-invalid }" name="@{form("content").label}" rows="5">@{form("content").value}</textarea>
+                @* Error handling *@
+                <div class="invalid-feedback">
+                @for(error <- form.errors("content")) {
+                    <dd class="error">@Messages(error.message,0)</dd>
+                }
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label col-form-label-sm" for="customFile">Import content from text file</label>
+                <input type="file" class="form-control form-control-sm" name="text-file" id="customFile" accept=".txt,.docx"
+                style="width: 18%"/>
+                <br>
+                <button id="upload-file-btn" class="btn btn-outline-info btn-sm" type="button">
+                    <i class="fa fa-upload"></i>
+                    Import
+                </button>
+            </div>
+            <div class="form-group">
+                <label for="@{form("tags").id}">@{form("tags").label}</label>
+                <input type="text" class="form-control  @if(form.errors("tags").nonEmpty){ is-invalid }" id="@{form("tags").id}" name="@{form("tags").label}" value="@{form("tags").value}"
+                aria-describedby="tagsHelp" placeholder="Enter according tags for note.">
+                <small id="tagsHelp" class="form-text text-muted">Enter according tags for note.</small>
+                @* Error handling *@
+                <div class="invalid-feedback">
+                @for(error <- form.errors("tags")) {
+                    <dd class="error">@Messages(error.message,0)</dd>
+                }
+                </div>
+            </div>
+            <div class="row" style="position:relative; top:10px;">
+                <input type="submit" class="w3-container btn btn-success" value="Update">
+            </div>
+            }
+        </div>
+    </div>
+
+    <div class="card bg-info mb-3" style="max-width: 100%;">
+        <div class="card-header">Actions</div>
+        <div class="card-body">
+            <div class="row">
+                <button onclick="location.href='@controllers.routes.NotesController.notesList()'" type="button" class="btn btn-outline-success">Go all notes</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            $(function(){
+                $("#upload-file-btn").on('click', function(){
+                    let file_to_upload = $('input[name="text-file"]')[0].files[0]
+                    if (file_to_upload === undefined) {
+                        alert("Missing file to upload!")
+                        return
+                    }
+
+                    // prepare data
+                    let data = new FormData();
+                    data.append('file', file_to_upload)
+
+                    $.ajax({
+                        url: @controllers.routes.NotesController.uploadNoteContent(),
+                        type: "POST",
+                        data: data,
+                        enctype: 'multipart/form-data',
+                        processData: false, // do not process data
+                        contentType: false,
+                        cache: false,
+                        success: function(response) {
+                            $('textarea[name="content"]').val(response.content.trim())
+                        },
+                        error: function(jqXHR, text_status, error_message) {
+                            console.log(error_message);
+                        }
+                    })
+                })
+            })
+    </script>
+}

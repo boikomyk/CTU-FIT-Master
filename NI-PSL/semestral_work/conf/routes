@@ -1,0 +1,32 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                                controllers.HomeController.index()
+
+# all notes (grid/list)
+GET     /notes                           controllers.NotesController.notesList()
+# note detail (read only)
+GET     /note-detail/:id                 controllers.NotesController.noteDetail(id: Long)
+# note edit
+GET    /note-edit/:id                    controllers.NotesController.noteEdit(id: Long)
+POST   /note-edit-post/:id               controllers.NotesController.noteEditPost(id: Long)
+# note delete
+POST   /note-delete/:id                  controllers.NotesController.noteDelete(id: Long)
+# note new
+GET     /note-new/                       controllers.NotesController.noteNew()
+GET     /note-new-post/                  controllers.NotesController.noteNewPost()
+
+# export pdf
+GET     /note-export-csv/                controllers.NotesController.noteExportCSV(id: Long)
+# export pdf
+GET     /notes-batch-export-csv/         controllers.NotesController.notesBatchExportCSV()
+
++nocsrf
+POST    /upload/                         controllers.NotesController.uploadNoteContent()
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

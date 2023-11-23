@@ -1,0 +1,150 @@
+@import models.data.Note
+@import java.time.format.DateTimeFormatter
+@(notes: Seq[Note])(implicit request: RequestHeader, flash: Flash)
+
+@main("All Notes", "notes") {
+    @if(!flash.isEmpty) {
+        <div id="alert-message" class="alert alert-success" role="alert">
+        @flash.get("success")
+        </div>
+    }
+
+    <button onclick="location.href='@controllers.routes.NotesController.noteNew()'"
+    type="button" class="btn btn-lg btn-success" style="position: fixed; left: 1%; top: 8%">Create New</button>
+    <button id="export-all-csv-btn" disabled
+    class="btn btn-info" type="button" style="left: 1%; top: 21%; position: fixed;">
+        <i class="fa fa-download"></i>
+        Export to CSV
+    </button>
+    <table id='notes-table' class="table table-hover display">
+        <thead class="thead-light">
+            <tr>
+                <th class="dt-body-center sorting_disabled" rowspan="1" colspan="1" style="width: 14px;" aria-label="">
+                    <input type="checkbox" name="select_all" value="1" id="select-all-header">
+                </th>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Tags</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+        @for(note <- notes) {
+            <tr>
+                <td class=" dt-body-center">
+                    <input type="checkbox" name="id[]" value="@note.id">
+                </td>
+                <td>@note.id</td>
+                <td>@note.title</td>
+                <td>
+                @if(note.tags.length > 20){
+                    @note.tags.slice(0, 20)..
+                }else{
+                    @note.tags
+                }
+                </td>
+                <td>@note.created_when.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))</td>
+                <td>@note.updated_when.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))</td>
+                <td>
+                    <button onclick="location.href='@controllers.routes.NotesController.noteDetail(note.id.get)'" type="button" class="btn btn-outline-info">Detail</button>
+                    <button onclick="location.href='@controllers.routes.NotesController.noteEdit(note.id.get)'" type="button" class="btn btn-outline-secondary">Edit</button>
+                    @helper.form(action = helper.CSRF(routes.NotesController.noteDelete(note.id.get)), args =
+                        Symbol("style") -> "display: inline-block;",
+                        Symbol("onsubmit") -> "return confirm('Do you really want to delete this note?');") {
+                        <button class="btn btn-outline-danger" type="submit">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    @* Datatable init *@
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+    <script type="text/javascript">
+            $(function () {
+                // before init the table modify pagination buttons
+                // $.fn.dataTable.ext.classes.sPageButton = 'btn btn-outline-primary';
+                // init the datatable
+                $('#notes-table').DataTable({
+                    // "scrollY": "25vw",
+                    "aaSorting": [],
+                    responsive: true,
+                    columns: [
+                        {orderable: false},
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        {orderable: false},
+                        // {orderable: false},
+                        // {orderable: false}
+                    ],
+                    language: {
+                        sLengthMenu: "Display _MENU_ notes",
+                        info: "Showing _START_ to _END_ from _TOTAL_ notes (Pag. _PAGE_ from _PAGES_)",
+                        infoEmpty: "No data",
+                        emptyTable: "No data",
+                        zeroRecords: "No data",
+                        infoFiltered: " - Total number of notes: _MAX_",
+                        paginate: {first: "First", last: "Last", next: "Next", previous: "Previous"},
+                        searchPlaceholder: "Search by keywords"
+                    }
+                })
+
+                // alert handler
+                let flash = $('#alert-message')
+                if (flash.length > 0) {
+                    setTimeout(function(){
+                        flash.fadeOut('slow');
+                    }, 3000)
+                }
+
+                // handle click on "Select all" control
+                $('#select-all-header').on('click', function(){
+                    let select_all_is_checked = $('#notes-table_wrapper').find('th > input[type="checkbox"]').prop('checked')
+                    $('#notes-table_wrapper').find('td > input[type="checkbox"]').each(function(){
+                        $(this).prop('checked', select_all_is_checked)
+                    })
+                    // resolve export button
+                    if (select_all_is_checked) {
+                        $('#export-all-csv-btn').removeAttr("disabled");
+                    } else {
+                        $('#export-all-csv-btn').prop("disabled", true);
+                    }
+                });
+                // hold datable rows checkboxes
+                $('#notes-table_wrapper').find('td > input[type="checkbox"]').on('change', function(){
+                    let total_checkboxes_count = $('#notes-table_wrapper').find('td > input[type="checkbox"]').length
+                    let checked_checkboxes_count = $('#notes-table_wrapper').find('td > input[type="checkbox"]').filter(function(){
+                        return $(this).prop('checked')
+                    }).length
+                    // resolve select all button
+                    $('#notes-table_wrapper').find('th > input[type="checkbox"]').prop('checked', total_checkboxes_count === checked_checkboxes_count)
+                    // resolve export button
+                    if (checked_checkboxes_count > 0) {
+                        $('#export-all-csv-btn').removeAttr("disabled");
+                    } else {
+                        $('#export-all-csv-btn').prop("disabled", true);
+                    }
+                })
+                // hold export CSV button click
+                $("#export-all-csv-btn").click(function(){
+                    let selected_ids = []
+                    // obtain selected ids
+                    $('#notes-table_wrapper').find('td > input[type="checkbox"]').each(function(){
+                        if ($(this).prop('checked')) {
+                            selected_ids.push($(this).val())
+                        }
+                    })
+                    location.href = "@controllers.routes.NotesController.notesBatchExportCSV()?ids=" + selected_ids.join();
+                });
+            })
+    </script>
+}
+
